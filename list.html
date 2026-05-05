@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registered Users</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f2f5; padding: 40px; }
+    h2   { color: #333; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; background: #fff;
+            border-radius: 10px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.1); }
+    th { background: #4a90e2; color: #fff; padding: 12px 16px; text-align: left; }
+    td { padding: 11px 16px; border-bottom: 1px solid #eee; font-size: 14px; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: #f5f8ff; }
+    .empty { text-align: center; padding: 40px; color: #aaa; font-size: 15px; }
+    a { display: inline-block; margin-bottom: 20px; color: #4a90e2; text-decoration: none; font-size: 14px; }
+    a:hover { text-decoration: underline; }
+    .count { color: #555; margin-bottom: 16px; font-size: 14px; }
+  </style>
+</head>
+<body>
+
+  <a href="register.html">← Back to Registration</a>
+  <h2>Registered Users</h2>
+  <div class="count" id="countInfo"></div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+  </table>
+
+<script>
+  // Read users array from localStorage
+  var users = JSON.parse(localStorage.getItem("users") || "[]");
+  var tbody = document.getElementById("tableBody");
+  var countInfo = document.getElementById("countInfo");
+
+  countInfo.textContent = "Total users: " + users.length;
+
+  if (users.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="4" class="empty">No users registered yet.</td></tr>';
+  } else {
+    // Loop through the array and build table rows
+    users.forEach(function(user, index) {
+      var row = "<tr>" +
+        "<td>" + (index + 1) + "</td>" +
+        "<td>" + user.name  + "</td>" +
+        "<td>" + user.email + "</td>" +
+        "<td>" + user.phone + "</td>" +
+      "</tr>";
+      tbody.innerHTML += row;
+    });
+  }
+</script>
+
+</body>
+</html>
